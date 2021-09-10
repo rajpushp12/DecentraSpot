@@ -1,3 +1,35 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+
+
+class User(AbstractUser):
+    first_name=models.CharField(max_length=20)
+    last_name=models.CharField(max_length=20)
+    wallet_address=models.CharField(max_length=20)
+
+
+class Balance(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    usdt=models.FloatField(default=0)
+    btc=models.FloatField(default=0)
+    eth=models.FloatField(default=0)
+    ada=models.FloatField(default=0)
+
+
+class Transfers(models.Model):
+    sender=models.CharField(max_length=32, default=None)
+    receiver=models.CharField(max_length=32, default=None)
+    asset=models.CharField(max_length=4)
+    amount=models.FloatField()
+    time=models.DateTimeField(auto_now_add=True)
+
+
+class Requests(models.Model):
+    user=models.CharField(max_length=32, default=None)
+    asset=models.CharField(max_length=4)
+    amount=models.FloatField()
+    request_time=models.DateTimeField(auto_now_add=True)
+    status=models.CharField(max_length=10, default='Pending')
+    financer=models.CharField(max_length=32, default=None)
+    complete_time=models.DateTimeField(default=None)
