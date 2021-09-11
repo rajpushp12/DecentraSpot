@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h2>Register</h2>
+    <h2>Just a minute!</h2>
 
     {% if message %}
         <div>{{ message }}</div>
@@ -30,9 +30,9 @@
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
-        <input class="btn btn-primary btn-block" type="submit" value="Register">
+        <input class="btn btn-warning btn-block" type="submit" value="Register">
     </form>
 
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    Have an account? <a href="{% url 'login' %}">Log In here.</a>
 
 {% endblock %}

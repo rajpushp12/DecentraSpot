@@ -5,13 +5,69 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+import json
+
 from .models import *
 
 
 
 def index(request):
-    if User.is_authenticated:
-        return render(request, 'exchange/index.html')
+
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+    parameters = {
+    'start':1,
+    'limit':6,
+    'convert':'USD'
+    }
+    headers = {
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': '960d1775-50a1-4b05-8e81-0ee3be509a4f',
+    }
+
+    session = Session()
+    session.headers.update(headers)
+
+    
+    try:
+        response = session.get(url, params=parameters)
+        data = json.loads(response.text)
+        list=[]
+        price_set=[]
+        market_cap=[]
+
+        for detail in data["data"]:
+            list.append(detail["quote"])
+
+        for x in list:
+            price_set.append(x["USD"]["price"])
+            market_cap.append(x["USD"]["market_cap"]/(pow(10,9)))
+
+        price={
+            'btc':round(price_set[0],2),
+            'eth':round(price_set[1],2),
+            'ada':round(price_set[2],2),
+            'bnb':round(price_set[3],2),
+            'sol':round(price_set[5],2),
+            }
+
+        market_cap={
+            'btc':round(market_cap[0],2),
+            'eth':round(market_cap[1],2),
+            'ada':round(market_cap[2],2),
+            'bnb':round(market_cap[3],2),
+            'sol':round(market_cap[5],2),
+            }
+
+        return render(request, 'exchange/index.html',{
+            'price':price,
+            'market_cap':market_cap
+        })
+
+    except (ConnectionError, Timeout, TooManyRedirects) as message:
+        return HttpResponse(message)
+    
 
 
 

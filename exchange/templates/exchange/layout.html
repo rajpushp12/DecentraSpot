@@ -3,26 +3,29 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>{% block title %}Social Network{% endblock %}</title>
+        <title>{% block title %}DecentraSpot{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+        <link href="{% static 'exchange/style.css' %}" rel="stylesheet">
         {% block script %}
         {% endblock %}
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             
-            <a class="navbar-brand" href="#">DecentraSpot</a>
+            <a style="color: #f0ad4e;" class="navbar-brand" href="#">DecentraSpot</a>
 
-            <div>
-              <ul class="nav navbar-nav mr-auto">
+            <div class="navbar-collapse">
+              <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                    <a class="nav-link" href="">Following</a>
+                    <a class="nav-link" href="">Wallets</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="">Create Post</a>
+                    <a class="nav-link" href="">Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="">Requests</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -36,13 +39,24 @@
                     </li>
                 {% endif %}
               </ul>
+
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+              </form>
             </div>
-          </nav>
-          <br>
+
+          </nav><br>
         
         <div class="container-fluid">
             {% block body %}
             {% endblock %}
         </div>
+
+        <footer class="bg-dark p-3">
+            <div>
+                <p>Copyright @ DecentraSpot | Contact Us: support@decentraspot.com</p>
+            </div>
+        </footer>
     </body>
 </html>

@@ -1,0 +1,11 @@
+body{
+    font-family: 'Manrope', sans-serif;
+}
+footer{
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  color: #f0ad4e;
+  text-align: center;
+}

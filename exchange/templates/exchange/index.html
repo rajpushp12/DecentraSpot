@@ -2,5 +2,24 @@
 {% load static %}
 
 {% block body %}
-
+<div class="row">
+    <div class="col-sm-6">
+        <h2>BTC/USDT</h2>
+        <h4>{{ price.btc }}</h4>
+    </div>
+    <div class="col-sm-6">
+        <h2>ETH/USDT</h2>
+        <h4>{{ price.eth }}</h4>
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-sm-6">
+        <h2>SOL/USDT</h2>
+        <h4>{{ price.sol }}</h4>
+    </div>
+    <div class="col-sm-6">
+        <h2>ADA/USDT</h2>
+        <h4>{{ price.ada }}</h4>
+    </div>
+</div>
 {% endblock %}
