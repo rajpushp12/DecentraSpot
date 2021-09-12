@@ -17,6 +17,8 @@ class Balance(models.Model):
     eth=models.FloatField(default=0)
     ada=models.FloatField(default=0)
     sol=models.FloatField(default=0)
+    xrp=models.FloatField(default=0)
+    dot=models.FloatField(default=0)
 
     def __str__(self):
         return f"user: {self.user}"

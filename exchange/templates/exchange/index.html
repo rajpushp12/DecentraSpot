@@ -2,24 +2,90 @@
 {% load static %}
 
 {% block body %}
-<div class="row">
-    <div class="col-sm-6">
-        <h2>BTC/USDT</h2>
-        <h4>{{ price.btc }}</h4>
-    </div>
-    <div class="col-sm-6">
-        <h2>ETH/USDT</h2>
-        <h4>{{ price.eth }}</h4>
-    </div>
-</div><br>
-<div class="row">
-    <div class="col-sm-6">
-        <h2>SOL/USDT</h2>
-        <h4>{{ price.sol }}</h4>
-    </div>
-    <div class="col-sm-6">
-        <h2>ADA/USDT</h2>
-        <h4>{{ price.ada }}</h4>
+<div style="border-radius:0;" class="card mb-3 text-white bg-dark">
+    
+    <img style="width:100%;height:600px;" src="https://images.unsplash.com/photo-1622630732303-8e94514a1746?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2794&q=80">
+
+    <div class="card-img-overlay">
+        <h3 class="card-title">Request | Trade | Gain Interests</h3>
+        <h5 class="card-text">DecentraSpot has been successful to make lending possible in Spots.</h5>
+        <h6 class="card-text">Through our peers on DecentraSpot, you can now trade tokens and choose to pay later in the spot of your choice. That's cool! Isn't it?</h6>
     </div>
 </div>
+
+<div class="table-responsive">
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">CUR</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Market Cap</th>
+                <th scope="col">24 hr Change</th>
+                <th scope="col">1 Week Change</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>BTC</td>
+                <td>Bitcoin</td>
+                <td>USD {{ price.btc }}</td>
+                <td>{{ market_cap.btc }} B</td>
+                <td>{{ change24h.btc }} Percent</td>
+                <td>{{ change7d.btc }} Percent</td>
+            </tr>
+            <tr>
+                <td>ETH</td>
+                <td>Etherium</td>
+                <td>USD {{ price.eth }}</td>
+                <td>{{ market_cap.eth }} B</td>
+                <td>{{ change24h.eth }} Percent</td>
+                <td>{{ change7d.eth }} Percent</td>
+            </tr>
+            <tr>
+                <td>ADA</td>
+                <td>Carnado</td>
+                <td>USD {{ price.ada }}</td>
+                <td>{{ market_cap.ada }} B</td>
+                <td>{{ change24h.ada }} Percent</td>
+                <td>{{ change7d.ada }} Percent</td>
+            </tr>
+            <tr>
+                <td>BNB</td>
+                <td>Binance</td>
+                <td>USD {{ price.bnb }}</td>
+                <td>{{ market_cap.bnb }} B</td>
+                <td>{{ change24h.bnb }} Percent</td>
+                <td>{{ change7d.bnb }} Percent</td>
+            </tr>
+            <tr>
+                <td>SOL</td>
+                <td>Solana</td>
+                <td>USD {{ price.sol }}</td>
+                <td>{{ market_cap.sol }} B</td>
+                <td>{{ change24h.sol }} Percent</td>
+                <td>{{ change7d.sol }} Percent</td>
+            </tr>
+            <tr>
+                <td>XRP</td>
+                <td>Ripple</td>
+                <td>USD {{ price.xrp }}</td>
+                <td>{{ market_cap.xrp }} B</td>
+                <td>{{ change24h.xrp }} Percent</td>
+                <td>{{ change7d.xrp }} Percent</td>
+            </tr>
+            <tr>
+                <td>DOT</td>
+                <td>Polkadot</td>
+                <td>USD {{ price.dot }}</td>
+                <td>{{ market_cap.dot }} B</td>
+                <td>{{ change24h.dot }} Percent</td>
+                <td>{{ change7d.dot }} Percent</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br><br>
+
+
 {% endblock %}

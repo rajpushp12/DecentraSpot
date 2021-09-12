@@ -1,9 +1,15 @@
 body{
-    font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
+  min-height: 400px;
+  margin-bottom: 100px;
+  clear: both;
 }
+
+
 footer{
   position: fixed;
   bottom: 0;
+  left:0;
   height: 60px;
   width: 100%;
   color: #f0ad4e;
