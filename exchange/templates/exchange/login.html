@@ -1,24 +1,28 @@
 {% extends "exchange/layout.html" %}
 
 {% block body %}
-
-    <h2>Hello there!</h2>
-
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
+<div style="height:800px; padding-top:160px;" class="bg-dark text-white">
+    <div class="container">
+        
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
+        <div class="form-group col-sm-4 offset-sm-4">
+            <h3 style="color: #f0ad4e;">Sign In to DecentraSpot</h3><br>
+            {% if message %}
+            <div>{{ message }}</div>
+            {% endif %}
             <input autofocus class="form-control" type="text" name="username" placeholder="Username">
         </div>
-        <div class="form-group">
+        <div class="form-group col-sm-4 offset-sm-4">
             <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
-        <input class="btn btn-warning btn-block" type="submit" value="Login">
+        <div class="form-group col-sm-4 offset-sm-4">
+            <input class="btn btn-warning btn-block" type="submit" value="Login"><br>
+            Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+        </div>
     </form>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
+    
+    </div>
+</div>
 {% endblock %}

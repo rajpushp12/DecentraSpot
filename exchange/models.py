@@ -19,6 +19,10 @@ class Balance(models.Model):
     sol=models.FloatField(default=0)
     xrp=models.FloatField(default=0)
     dot=models.FloatField(default=0)
+    uni=models.FloatField(default=0)
+    ltc=models.FloatField(default=0)
+    
+
 
     def __str__(self):
         return f"user: {self.user}"
