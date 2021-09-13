@@ -1,0 +1,58 @@
+{% extends "exchange/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div style="height:800px;" class="bg-dark text-white">
+
+<div class="table-responsive">
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Coin</th>
+                <th scope="col">Balance</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>BTC</td>
+                <td>{{ balance.btc }}</td>
+
+            </tr>
+            <tr>
+                <td>ETH</td>
+                <td>{{ balance.eth }}</td>
+            </tr>
+            <tr>
+                <td>ADA</td>
+                <td>{{ balance.ada }}</td>
+            </tr>
+            <tr>
+                <td>BNB</td>
+                <td>{{ balance.bnb }}</td>
+            </tr>
+            <tr>
+                <td>SOL</td>
+                <td>{{ balance.sol }}</td>
+            </tr>
+            <tr>
+                <td>XRP</td>
+                <td>{{ balance.xrp }}</td>
+            </tr>
+            <tr>
+                <td>DOT</td>
+                <td>{{ balance.dot }}</td>
+            </tr>
+            <tr>
+                <td>UNI</td>
+                <td>{{ balance.uni }}</td>
+            </tr>
+            <tr>
+                <td>LTC</td>
+                <td>{{ balance.ltc }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div><br><br>
+</div>
+{% endblock %}

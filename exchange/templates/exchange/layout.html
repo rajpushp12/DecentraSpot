@@ -19,7 +19,7 @@
               <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                    <a class="nav-link" href="">Wallets</a>
+                    <a class="nav-link" href="{% url 'balance' request.user.username %}">Wallets</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="">Transactions</a>

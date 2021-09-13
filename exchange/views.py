@@ -130,3 +130,18 @@ def register(request):
     else:
         return render(request, "exchange/register.html")
 
+def balance(request, username):
+
+    if request.user.is_authenticated:
+        user=User.objects.get(username=username)
+        balance=Balance.objects.get(user=user.id)
+
+        return render(request, 'exchange/balance.html',{
+            'balance':balance
+        })
+
+    else:
+        return HttpResponseRedirect(reverse('login'))
+
+
+

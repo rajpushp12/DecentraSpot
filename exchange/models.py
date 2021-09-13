@@ -16,6 +16,7 @@ class Balance(models.Model):
     btc=models.FloatField(default=0)
     eth=models.FloatField(default=0)
     ada=models.FloatField(default=0)
+    bnb=models.FloatField(default=0)
     sol=models.FloatField(default=0)
     xrp=models.FloatField(default=0)
     dot=models.FloatField(default=0)
@@ -29,8 +30,8 @@ class Balance(models.Model):
 
 
 class Transfers(models.Model):
-    sender=models.CharField(max_length=32, default=None)
-    receiver=models.CharField(max_length=32, default=None)
+    sender=models.CharField(max_length=32)
+    receiver=models.CharField(max_length=32)
     asset=models.CharField(max_length=4)
     amount=models.FloatField()
     time=models.DateTimeField(auto_now_add=True)
@@ -39,7 +40,7 @@ class Transfers(models.Model):
         return f"From: {self.sender}, To: {self.receiver}, amount: {self.amount} {self.asset}"
 
 class Requests(models.Model):
-    user=models.CharField(max_length=32, default=None)
+    user=models.CharField(max_length=32)
     asset=models.CharField(max_length=4)
     amount=models.FloatField()
     request_time=models.DateTimeField(auto_now_add=True)
