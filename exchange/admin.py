@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display=("id", "username", "email", "wallet_address", "last_login")
 
 class BalanceAdmin(admin.ModelAdmin):
-    list_display=("user", "usd", "btc", "eth", "ada", "sol", "xrp", "dot", "uni", "ltc")
+    list_display=("user", "usd", "busd", "btc", "eth", "ada", "sol", "xrp", "dot", "uni", "ltc")
 
 class TransfersAdmin(admin.ModelAdmin):
     list_display=("sender", "receiver", "asset", "amount", "time")

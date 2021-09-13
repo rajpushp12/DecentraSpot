@@ -132,11 +132,45 @@ def register(request):
 
 def balance(request, username):
 
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+    parameters = {
+    'start':1,
+    'limit':16,
+    'convert':'USD'
+    }
+    headers = {
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': '960d1775-50a1-4b05-8e81-0ee3be509a4f',
+    }
+
+    session = Session()
+    session.headers.update(headers)
+
+    list, cur_list = [], []
+    price_set={}
+  
+    
+    response = session.get(url, params=parameters)
+    data = json.loads(response.text)
+
+    for detail in data["data"]:
+        cur_list.append(detail["symbol"].lower())
+        list.append(detail["quote"])
+
+    for (c, x) in zip(cur_list,list):
+        price_set[c]=(round(x["USD"]["price"],2))
+
     if request.user.is_authenticated:
         user=User.objects.get(username=username)
         balance=Balance.objects.get(user=user.id)
 
+        total=((balance.btc)*(price_set["btc"]))+((balance.bnb)*(price_set["bnb"]))+((balance.ada)*(price_set["ada"]))+((balance.xrp)*(price_set["xrp"]))+((balance.uni)*(price_set["uni"]))+((balance.ltc)*(price_set["ltc"]))+((balance.sol)*(price_set["sol"]))+((balance.eth)*(price_set["eth"]))+((balance.dot)*(price_set["dot"]))+((balance.busd)*(price_set["busd"]))+(balance.usd)
+        total=round(total,2)
+        spot=round((total-balance.usd),2)
+
         return render(request, 'exchange/balance.html',{
+            'spot':spot,
+            'total':total,
             'balance':balance
         })
 

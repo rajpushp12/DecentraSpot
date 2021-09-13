@@ -2,57 +2,109 @@
 {% load static %}
 
 {% block body %}
-<div style="height:800px;" class="bg-dark text-white">
+<div style="height:1000px; padding-top:40px" class="bg-dark text-white">
+<div class="container">
 
-<div class="table-responsive">
+<div style="color: #f0ad4e;" class="row">
+<div class="col-sm-4">
+    <h3>Total: USD {{ total }}</h3>
+</div>
+<div class="col-sm-4">
+    <h3>Fiat: USD {{ balance.usd }}</h3>
+</div>
+<div class="col-sm-4">
+    <h3>Spot: USD {{ spot }}</h3>
+</div>
+</div><br>
+
+<button class="btn btn-block btn-outline-warning">Load USD</button><br>
+
+<div style="font-size:22px" class="table-responsive">
     <table class="table table-dark table-hover">
         <thead>
             <tr>
                 <th scope="col">Coin</th>
                 <th scope="col">Balance</th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
+                <td>BUSD</td>
+                <td>{{ balance.busd }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
+            </tr>
+            <tr>
                 <td>BTC</td>
                 <td>{{ balance.btc }}</td>
-
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>ETH</td>
                 <td>{{ balance.eth }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>ADA</td>
                 <td>{{ balance.ada }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>BNB</td>
                 <td>{{ balance.bnb }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>SOL</td>
                 <td>{{ balance.sol }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>XRP</td>
                 <td>{{ balance.xrp }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>DOT</td>
                 <td>{{ balance.dot }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>UNI</td>
                 <td>{{ balance.uni }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
             <tr>
                 <td>LTC</td>
                 <td>{{ balance.ltc }}</td>
+                <td><button class="btn btn-sm btn-outline-warning">Trade</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Send</button></td>
+                <td><button class="btn btn-sm btn-outline-warning">Request</button></td>
             </tr>
         </tbody>
     </table>
 </div><br><br>
+</div>
 </div>
 {% endblock %}
