@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -130,6 +131,8 @@ def register(request):
     else:
         return render(request, "exchange/register.html")
 
+
+
 def balance(request, username):
 
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
@@ -162,15 +165,45 @@ def balance(request, username):
 
     if request.user.is_authenticated:
         user=User.objects.get(username=username)
-        balance=Balance.objects.get(user=user.id)
+        balance_fetch=Balance.objects.get(user=user.id)
 
-        total=((balance.btc)*(price_set["btc"]))+((balance.bnb)*(price_set["bnb"]))+((balance.ada)*(price_set["ada"]))+((balance.xrp)*(price_set["xrp"]))+((balance.uni)*(price_set["uni"]))+((balance.ltc)*(price_set["ltc"]))+((balance.sol)*(price_set["sol"]))+((balance.eth)*(price_set["eth"]))+((balance.dot)*(price_set["dot"]))+((balance.busd)*(price_set["busd"]))+(balance.usd)
+        balance = {}
+
+        value={
+        'btc':(balance_fetch.btc),
+        'bnb':(balance_fetch.bnb),
+        'ada':(balance_fetch.ada),
+        'xrp':(balance_fetch.xrp),
+        'uni':(balance_fetch.uni),
+        'ltc':(balance_fetch.ltc),
+        'sol':(balance_fetch.sol),
+        'eth':(balance_fetch.eth),
+        'dot':(balance_fetch.dot),
+        'busd':(balance_fetch.busd)
+        }
+
+        for m in value:
+            balance[m]=round((value[m]),6)
+
+        for n in value:
+            value[n]=round((value[n]*price_set[n]),2)
+
+
+        total=balance_fetch.busd
+
+        for i in value:
+            total=total+value[i]
+        
+
         total=round(total,2)
-        spot=round((total-balance.usd),2)
+        busd= round(balance["busd"],2)
+        spot=round((total-(balance_fetch.busd)),2)
 
         return render(request, 'exchange/balance.html',{
             'spot':spot,
+            'busd':busd,
             'total':total,
+            'value':value,
             'balance':balance
         })
 
@@ -179,3 +212,165 @@ def balance(request, username):
 
 
 
+
+
+@login_required
+@csrf_exempt
+def add_usd(request, username):
+
+    try:
+        user=User.objects.get(username=username)
+        balance=Balance.objects.get(user=user.id)
+
+        if request.method == "PUT":
+
+            data=json.loads(request.body)
+            
+            if len(data.get("card_number")) == 12:
+
+                x = balance.usd + data["amount"]
+                balance.usd = x
+                balance.save()
+
+            else:
+                return HttpResponse("Invalid Card Detail")  
+
+    except User.DoesNotExist:
+        return JsonResponse({"error": "Email not found."}, status=404)
+
+
+
+
+
+
+@login_required
+def add_transaction(request, username):
+
+    try:
+        user=User.objects.get(username=username)
+
+        if request.method == "POST":
+
+            asset=request.POST["asset"]
+            amount=float(request.POST["amount"])
+            password=request.POST["password"]
+            recipient=request.POST["recipient"]
+
+            recipient_fetch = User.objects.get(username=recipient)
+
+            check = authenticate(request, username=username, password=password)
+            if check is not None:
+
+                sent_balance=Balance.objects.get(user=user.id)
+                m=getattr(sent_balance, asset)
+
+                if amount<=m  and recipient_fetch is not None:
+                    m= m - amount
+                    setattr(sent_balance, asset, m)
+                    sent_balance.save()
+
+                    received_balance=Balance.objects.get(user=recipient_fetch.id)
+                    n=getattr(received_balance, asset)
+                    n= n + amount
+
+                    setattr(received_balance, asset, n)
+                    received_balance.save()
+
+                    detail=Transactions()
+                    detail.user=username
+                    detail.asset=asset
+                    detail.amount=amount
+                    detail.recipient=recipient
+                    detail.save()
+
+                    return redirect('balance', username)
+
+                else:
+                    return HttpResponse("Error: Insufficient Balance")
+ 
+            else:
+                return HttpResponse("Error: Invalid Password")
+
+        else:
+            return HttpResponseRedirect(reverse('index'))
+
+    except User.DoesNotExist:
+        return HttpResponse("Error: User doesn't exist")
+
+
+
+
+@login_required
+def trade(request, asset):
+
+    try:
+        user=User.objects.get(username=request.user.username)
+
+        if request.method == "POST":
+
+            asset=request.POST["asset"]
+            amount=float(request.POST["amount"])
+
+            balance=Balance.objects.get(user=user.id)
+            m=getattr(balance, asset)
+
+            if amount<=m:
+                m= m - amount
+                setattr(balance, asset, m)
+                balance.save()
+
+                n=getattr(balance, asset)
+                n= n + amount
+
+                setattr(balance, asset, n)
+                balance.save()
+
+                return redirect('index')
+ 
+            else:
+                return HttpResponse("Error: Invalid Password")
+
+        else:
+            return HttpResponseRedirect(reverse('index'))
+
+    except User.DoesNotExist:
+        return HttpResponse("Error: User doesn't exist")    
+
+
+
+
+
+
+
+
+@login_required
+@csrf_exempt
+def add_request(request, username):
+
+    try:
+        user=User.objects.get(username=username)
+        balance=Balance.objects.get(user=user.id)
+        detail=Transactions()
+
+        if request.method == "PUT":
+
+            data=json.loads(request.body)
+            
+            if len(data.get("card_number")) == 12:
+
+                x = balance.usd + data["amount"]
+                balance.usd = x
+                balance.save()
+
+                detail.user=username
+                detail.asset="USD"
+                detail.amount=data["amount"]
+                detail.status="Balance Load"
+                detail.save()
+                
+    
+            else:
+                return HttpResponse("Invalid Card Detail")  
+
+    except User.DoesNotExist:
+        return JsonResponse({"error": "Email not found."}, status=404)

@@ -6,10 +6,8 @@ body{
 
 
 footer{
-  position: fixed;
+  padding: 10px 0;
   bottom: 0;
-  left:0;
-  height: 60px;
   width: 100%;
   color: #f0ad4e;
   text-align: center;
