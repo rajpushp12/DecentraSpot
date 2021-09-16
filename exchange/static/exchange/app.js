@@ -6,9 +6,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const transfer = document.querySelector('#transfer-btn')
     transfer.onclick = () => transfer_curr();
 
-    const request = document.querySelector('#request-btn')
-    request.onclick = () => request_curr(request.value);
-
     //default
     btn();
 
@@ -61,34 +58,6 @@ function transfer_curr(){
     document.querySelector('#balance-view').style.display = 'none';
     document.querySelector('#request-view').style.display = 'none';
     document.querySelector('#add-view').style.display = 'none';
-
-}
-
-
-function request_curr(username){
-    document.querySelector('#request-view').style.display = 'block';
-    document.querySelector('#transfer-view').style.display = 'none';
-    document.querySelector('#balance-view').style.display = 'none';
-    document.querySelector('#add-view').style.display = 'none';
-
-    document.querySelector('#request-submit').onsubmit = () => {
-
-        const request_amount=parseInt(document.querySelector('#request-amount').value);
-        const curr=document.querySelector('#request-curr').value;
-    
-        console.log(request_amount);
-        console.log(curr);
-    
-            fetch(`/add_request/${username}`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    amount: request_amount,
-                    curr: curr
-                })
-            });
-    
-            console.log('done');
-        };
 
 }
 

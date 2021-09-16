@@ -40,22 +40,9 @@ class Transactions(models.Model):
         return f"From: {self.user}, To: {self.recipient}, amount: {self.amount} {self.asset}"
 
     def serialize(self):
+
         return{
             "user":self.user,
             "amount":self.amount,
-            "status":self.status,
             "time":self.time
         }
-
-class Requests(models.Model):
-    user=models.CharField(max_length=32)
-    asset=models.CharField(max_length=4)
-    amount=models.FloatField()
-    request_time=models.DateTimeField(auto_now_add=True)
-
-    status=models.CharField(max_length=10, default='Pending')
-    peer_name=models.CharField(max_length=32, default=None)
-    complete_time=models.DateTimeField(default=None)
-
-    def __str__(self):
-        return f"User: {self.user}, amount: {self.amount} {self.asset}"

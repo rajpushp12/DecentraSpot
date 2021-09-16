@@ -22,7 +22,7 @@
                     <a class="nav-link" href="{% url 'balance' request.user.username %}">Wallet</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="">Transactions</a>
+                    <a class="nav-link" href="{% url 'transaction' request.user.username %}">Transactions</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="">Requests</a>

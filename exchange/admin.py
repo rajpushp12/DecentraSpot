@@ -12,12 +12,8 @@ class BalanceAdmin(admin.ModelAdmin):
 class TransactionsAdmin(admin.ModelAdmin):
     list_display=("user", "recipient", "asset", "amount", "time")
 
-class RequestsAdmin(admin.ModelAdmin):
-    list_display=("user", "amount", "asset", "status", "request_time")
-
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Balance, BalanceAdmin)
-admin.site.register(Requests, RequestsAdmin)
 admin.site.register(Transactions, TransactionsAdmin)

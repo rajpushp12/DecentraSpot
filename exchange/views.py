@@ -303,74 +303,121 @@ def add_transaction(request, username):
 @login_required
 def trade(request, asset):
 
+    
     try:
         user=User.objects.get(username=request.user.username)
 
+        if request.method == "GET":
+            return render(request, 'exchange/trade.html', {
+                'asset': asset
+            })
+
+
         if request.method == "POST":
 
-            asset=request.POST["asset"]
-            amount=float(request.POST["amount"])
+            url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+            parameters = {
+            'start':1,
+            'limit':16,
+            'convert':'USD'
+            }
+            headers = {
+            'Accepts': 'application/json',
+            'X-CMC_PRO_API_KEY': '960d1775-50a1-4b05-8e81-0ee3be509a4f',
+            }
 
-            balance=Balance.objects.get(user=user.id)
-            m=getattr(balance, asset)
+            session = Session()
+            session.headers.update(headers)
 
-            if amount<=m:
-                m= m - amount
-                setattr(balance, asset, m)
-                balance.save()
-
-                n=getattr(balance, asset)
-                n= n + amount
-
-                setattr(balance, asset, n)
-                balance.save()
-
-                return redirect('index')
- 
-            else:
-                return HttpResponse("Error: Invalid Password")
-
-        else:
-            return HttpResponseRedirect(reverse('index'))
-
-    except User.DoesNotExist:
-        return HttpResponse("Error: User doesn't exist")    
-
-
-
-
-
-
-
-
-@login_required
-@csrf_exempt
-def add_request(request, username):
-
-    try:
-        user=User.objects.get(username=username)
-        balance=Balance.objects.get(user=user.id)
-        detail=Transactions()
-
-        if request.method == "PUT":
-
-            data=json.loads(request.body)
-            
-            if len(data.get("card_number")) == 12:
-
-                x = balance.usd + data["amount"]
-                balance.usd = x
-                balance.save()
-
-                detail.user=username
-                detail.asset="USD"
-                detail.amount=data["amount"]
-                detail.status="Balance Load"
-                detail.save()
-                
+            list, cur_list = [], []
+            price_set={}
+  
     
-            else:
-                return HttpResponse("Invalid Card Detail")  
+            response = session.get(url, params=parameters)
+            data = json.loads(response.text)
+
+            for detail in data["data"]:
+                cur_list.append(detail["symbol"].lower())
+                list.append(detail["quote"])
+
+            for (c, x) in zip(cur_list,list):
+                price_set[c]=(round(x["USD"]["price"],2))
+
+
+
+            if 'buy' in request.POST:
+                amount=float(request.POST["amount"])
+
+                balance=Balance.objects.get(user=user.id)
+                m=getattr(balance, asset)
+                n=balance.busd
+
+                if amount<=balance.busd:
+
+                    m= m + (amount/price_set[asset])
+                    setattr(balance, asset, m)
+                    balance.save()
+
+                    n= n - amount
+                    balance.busd=n
+                    balance.save()
+
+                    return redirect('balance', request.user.username)
+ 
+                else:
+                    return render(request, 'exchange/trade.html', {
+                    'message': 'Insufficient BUSD',
+                    'asset': asset
+                    })
+
+
+
+            if 'sell' in request.POST:
+
+                amount=float(request.POST["amount"])
+
+                balance=Balance.objects.get(user=user.id)
+                a=getattr(balance, asset)
+                b=balance.busd
+
+                if (a*price_set[asset])>=amount:
+
+                    a= a - (amount/price_set[asset])
+                    setattr(balance, asset, a)
+                    balance.save()
+
+                    b= b + amount
+                    balance.busd=b
+                    balance.save()
+
+                    return redirect('balance', request.user.username)
+ 
+                else:
+                    return render(request, 'exchange/trade.html', {
+                    'message': f'Insufficient {asset}',
+                    'asset': asset
+                    })
 
     except User.DoesNotExist:
-        return JsonResponse({"error": "Email not found."}, status=404)
+        return HttpResponse("Error: User doesn't exist")
+
+
+
+
+def transaction(request, username):
+
+    if request.method == 'GET':
+
+        try:
+            sent_list=Transactions.objects.filter(user=username)
+            received_list=Transactions.objects.filter(recipient=username)
+
+
+            return render(request, 'exchange/transactions.html', {
+                'sent_list':sent_list,
+                'received_list':received_list
+            })
+
+
+        except Transactions.DoesNotExist:
+            return HttpResponse("Error: User doesn't exist")
