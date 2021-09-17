@@ -43,6 +43,31 @@ class Transactions(models.Model):
 
         return{
             "user":self.user,
+            "asset":self.asset,
             "amount":self.amount,
+            "time":self.time
+        }
+
+
+
+class Orders(models.Model):
+
+    user=models.CharField(max_length=32)
+    status=models.CharField(max_length=4)
+    asset=models.CharField(max_length=4)
+    asset_amount=models.CharField(max_length=4)
+    busd_amount=models.FloatField()
+    time=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"User: {self.user}, amount: {self.amount} {self.asset}"
+
+    def serialize(self):
+
+        return{
+            "user":self.user,
+            "asset":self.asset,
+            "amount":self.asset_amount,
+            "status":self.status,
             "time":self.time
         }

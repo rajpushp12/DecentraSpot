@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from requests import Request, Session
+from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 
@@ -183,13 +183,13 @@ def balance(request, username):
         }
 
         for m in value:
-            balance[m]=round((value[m]),6)
+            balance[m]=round((value[m]),8)
 
         for n in value:
-            value[n]=round((value[n]*price_set[n]),2)
+            value[n]=round((value[n]*price_set[n]),4)
 
 
-        total=balance_fetch.busd
+        total=0
 
         for i in value:
             total=total+value[i]
@@ -197,7 +197,7 @@ def balance(request, username):
 
         total=round(total,2)
         busd= round(balance["busd"],2)
-        spot=round((total-(balance_fetch.busd)),2)
+        spot=round((total-(balance["busd"])),2)
 
         return render(request, 'exchange/balance.html',{
             'spot':spot,
@@ -228,8 +228,8 @@ def add_usd(request, username):
             
             if len(data.get("card_number")) == 12:
 
-                x = balance.usd + data["amount"]
-                balance.usd = x
+                x = balance.busd + data["amount"]
+                balance.busd = x
                 balance.save()
 
             else:
@@ -248,6 +248,11 @@ def add_transaction(request, username):
 
     try:
         user=User.objects.get(username=username)
+
+        if request.method == "GET":
+            return render(request, 'exchange/send.html')
+
+
 
         if request.method == "POST":
 
@@ -283,19 +288,23 @@ def add_transaction(request, username):
                     detail.recipient=recipient
                     detail.save()
 
-                    return redirect('balance', username)
+                    return redirect('transaction', username)
 
                 else:
-                    return HttpResponse("Error: Insufficient Balance")
+                    return render(request, 'exchange/send.html', {
+                        'message': 'Insufficient Balance'
+                    })
  
             else:
-                return HttpResponse("Error: Invalid Password")
+                return render(request, 'exchange/send.html', {
+                        'message': 'Invalid Password'
+                    })
 
-        else:
-            return HttpResponseRedirect(reverse('index'))
 
     except User.DoesNotExist:
-        return HttpResponse("Error: User doesn't exist")
+        return render(request, 'exchange/send.html', {
+                'message': 'User Does not Exist'
+            })
 
 
 
@@ -362,6 +371,15 @@ def trade(request, asset):
                     balance.busd=n
                     balance.save()
 
+                    order=Orders()
+                    order.user=request.user.username
+                    order.asset_amount=amount/price_set[asset]
+                    order.status="buy"
+                    order.asset=asset
+                    order.busd_amount=amount
+                    order.save()
+
+
                     return redirect('balance', request.user.username)
  
                 else:
@@ -390,6 +408,14 @@ def trade(request, asset):
                     balance.busd=b
                     balance.save()
 
+                    order=Orders()
+                    order.user=request.user.username
+                    order.asset_amount=amount/price_set[asset]
+                    order.status="sell"
+                    order.asset=asset
+                    order.busd_amount=amount
+                    order.save()
+
                     return redirect('balance', request.user.username)
  
                 else:
@@ -409,8 +435,8 @@ def transaction(request, username):
     if request.method == 'GET':
 
         try:
-            sent_list=Transactions.objects.filter(user=username)
-            received_list=Transactions.objects.filter(recipient=username)
+            sent_list=Transactions.objects.filter(user=username).order_by('-time')
+            received_list=Transactions.objects.filter(recipient=username).order_by('-time')
 
 
             return render(request, 'exchange/transactions.html', {
@@ -421,3 +447,24 @@ def transaction(request, username):
 
         except Transactions.DoesNotExist:
             return HttpResponse("Error: User doesn't exist")
+
+def order(request, username):
+
+    if request.method == 'GET':
+
+        try:
+            buy_orders=Orders.objects.filter(user=username, status='buy').order_by('-time')
+            sell_orders=Orders.objects.filter(user=username, status='sell').order_by('-time')
+
+
+            return render(request, 'exchange/orders.html', {
+                'buy_orders':buy_orders,
+                'sell_orders':sell_orders
+            })
+
+
+        except Orders.DoesNotExist:
+            return HttpResponse("Error: Order doesn't exist")
+
+
+

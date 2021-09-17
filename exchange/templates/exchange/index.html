@@ -2,18 +2,15 @@
 {% load static %}
 
 {% block body %}
-<div style="border-radius:0;" class="card mb-3 text-white bg-dark">
-    
-    <img style="width:100%; height:800px;" src="https://images.unsplash.com/photo-1622630732303-8e94514a1746?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2794&q=80">
-
-    <div class="card-img-overlay">
-        <h3 class="card-title">Gain additional interests!</h3>
-        <h5 class="card-text">DecentraSpot has been successful in making lending possible in Spots.</h5>
-        <h6 class="card-text">Through our peers on DecentraSpot, you can now trade tokens and choose to pay later in the spot of your choice. That's cool! Isn't it?</h6>
-    </div>
+<div style="height:880px; padding-top:40px" class="bg-dark text-white">
+<div class="container-fluid">
+<div  style="color: #f0ad4e;">
+    {% if user.is_authenticated %}
+    <h3>Hello {{ request.user.first_name }}!</h3>
+    {% endif %}
+    <h3>Here are the markets listed on DecentraSpot.</h3><br><br>
 </div>
-
-<div style="font-size:20px; height:auto" class="table-responsive">
+<div style="font-size:20px;" class="table-responsive">
     <table class="table table-dark table-hover">
         <thead style="color: #f0ad4e;">
             <tr>
@@ -109,5 +106,7 @@
             </tr>
         </tbody>
     </table>
+</div>
+</div>
 </div>
 {% endblock %}

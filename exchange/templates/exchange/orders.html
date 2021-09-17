@@ -6,24 +6,24 @@
 <div class="container">
 
 
-<h2 style="color: #f0ad4e;">Received</h2><br>
+<h2 style="color: #f0ad4e;">Buy Orders</h2><br>
 <div style="font-size:20px;" class="table-responsive">
     <table class="table table-dark table-hover">
         <thead style="color: #f0ad4e;">
             <tr>
-                <th scope="col">From</th>
                 <th scope="col">Coin</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Time</th>
+                <th scope="col">Asset Amount</th>
+                <th scope="col">BUSD</th>
+                <th scope="col">Date and Time</th>
             </tr>
         </thead>
     
         <tbody>
-            {% for n in received_list %}
+            {% for n in buy_orders %}
             <tr>
-                <td>{{ n.user }}</td>
-                <td>{{ n.asset }}</td>
-                <td>{{ n.amount }}</td>
+                <td>{{ n.asset.upper }}</td>
+                <td>{{ n.asset_amount }}</td>
+                <td>{{ n.busd_amount }}</td>
                 <td>{{ n.time }}</td>
             </tr>
             {% endfor %}
@@ -31,7 +31,7 @@
     </table>
 </div><br><br><br><br>
 
-<h2 style="color: #f0ad4e;">Sent</h2><br>
+<h2 style="color: #f0ad4e;">Sell Orders</h2><br>
 <div style="font-size:20px;" class="table-responsive">
     <table class="table table-dark table-hover">
         <thead style="color: #f0ad4e;">
@@ -39,16 +39,16 @@
                 <th scope="col">To</th>
                 <th scope="col">Coin</th>
                 <th scope="col">Amount</th>
-                <th scope="col">Time</th>
+                <th scope="col">Date and Time</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for m in sent_list %}
+            {% for m in sell_orders %}
             <tr>
-                <td>{{ m.recipient }}</td>
-                <td>{{ m.asset }}</td>
-                <td>{{ m.amount }}</td>
+                <td>{{ m.asset.upper }}</td>
+                <td>{{ m.asset_amount }}</td>
+                <td>{{ m.busd_amount }}</td>
                 <td>{{ m.time }}</td>
             </tr>
             {% endfor %}

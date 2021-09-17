@@ -12,8 +12,12 @@ class BalanceAdmin(admin.ModelAdmin):
 class TransactionsAdmin(admin.ModelAdmin):
     list_display=("user", "recipient", "asset", "amount", "time")
 
+class OrdersAdmin(admin.ModelAdmin):
+    list_display=("user", "asset", "busd_amount", "asset_amount", "status", "time")
+
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Balance, BalanceAdmin)
+admin.site.register(Orders, OrdersAdmin)
 admin.site.register(Transactions, TransactionsAdmin)
