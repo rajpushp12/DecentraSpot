@@ -5,7 +5,16 @@
 <div style="height:1000px; padding-top:40px" class="bg-dark text-white">
 <div class="container">
 
+<div class="row">
+    <div class="col-sm-6">
+        <button id="btn1" class="btn btn-block btn-outline-warning">Recieved</button>
+    </div>
+    <div class="col-sm-6">
+        <button id="btn2" class="btn btn-block btn-outline-warning">Sent</button>
+    </div>
+</div><hr class="bg-light"><br><br>
 
+<div id="received-view">
 <h2 style="color: #f0ad4e;">Received</h2><br>
 <div style="font-size:20px;" class="table-responsive">
     <table class="table table-dark table-hover">
@@ -29,8 +38,11 @@
             {% endfor %}
         </tbody>
     </table>
-</div><br><br><br><br>
+</div></div>
 
+
+
+<div id="sent-view">
 <h2 style="color: #f0ad4e;">Sent</h2><br>
 <div style="font-size:20px;" class="table-responsive">
     <table class="table table-dark table-hover">
@@ -54,9 +66,7 @@
             {% endfor %}
         </tbody>
     </table>
-</div>
-
-
+</div></div>
 
 
 
@@ -68,5 +78,5 @@
 
 
 {% block script %}
-    <script src="{% static 'exchange/app.js' %}"></script>
+    <script src="{% static 'exchange/transaction.js' %}"></script>
 {% endblock %}

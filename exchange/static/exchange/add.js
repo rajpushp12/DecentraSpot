@@ -41,6 +41,7 @@ function add_balance(username){
         })
 
         console.log('done');
+        location.reload();
+        return false;
     };
-    return false;
 }
