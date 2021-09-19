@@ -4,7 +4,7 @@
 {% block body %}
 <div style="height:880px; padding-top:40px" class="bg-dark text-white">
 <div class="container-fluid">
-<div  style="color: #f0ad4e;">
+<div style="color: #f0ad4e;">
     {% if user.is_authenticated %}
     <h3>Hello {{ request.user.first_name }}!</h3>
     {% endif %}

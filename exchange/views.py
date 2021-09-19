@@ -226,14 +226,9 @@ def add_usd(request, username):
 
             data=json.loads(request.body)
             
-            if len(data.get("card_number")) == 12:
-
-                x = balance.busd + data["amount"]
-                balance.busd = x
-                balance.save()
-
-            else:
-                return HttpResponse("Invalid Card Detail")  
+            x = balance.busd + data["amount"]
+            balance.busd = x
+            balance.save()
 
     except User.DoesNotExist:
         return JsonResponse({"error": "Email not found."}, status=404)

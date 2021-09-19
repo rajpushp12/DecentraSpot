@@ -19,8 +19,10 @@
             <h3>Total: $ {{ total }}</h3>
         </div>
     </div><br>
+
+    <button id="load-btn" class="btn btn-block btn-outline-warning" value="{{ user.username }}">Load BUSD</button>
     
-    <button id="load-btn" class="btn btn-block btn-outline-warning" value="{{ user.username }}">Load BUSD</button><br><br><br>
+    <br><br><br>
 
 <div style="font-size:20px;" class="table-responsive">
     <table class="table table-dark table-hover">
@@ -110,6 +112,7 @@
             </div>
             <div class="form-group col-sm-4 offset-sm-4">
                 <input class="btn btn-warning btn-block" type="submit" value="Load"><br>
+                <div id="message"></div>
             </div>
         </form>
 </div>

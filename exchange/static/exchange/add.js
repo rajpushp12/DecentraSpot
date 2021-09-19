@@ -32,16 +32,25 @@ function add_balance(username){
     console.log(add_amount);
     console.log(card_number);
 
-        fetch(`/add_usd/${username}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                amount: add_amount,
-                card_number: card_number
-            })
-        })
 
-        console.log('done');
-        location.reload();
-        return false;
+        if(card_number.length==12){
+            fetch(`/add_usd/${username}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    amount: add_amount,
+                    card_number: card_number
+                })
+            })
+            
+            document.querySelector('#message').innerHTML = `Loaded USD ${add_amount} to BUSD Balance`;
+            location.reload()
+            return false;
+        }
+        
+        else{
+            document.querySelector('#message').innerHTML = `Invalid Card Number`;
+            return false;
+        }
+
     };
 }
