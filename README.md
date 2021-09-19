@@ -1,1 +1,3 @@
 # DecentraSpot
+
+#### Distinctiveness and Complexity
