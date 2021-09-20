@@ -132,7 +132,7 @@ def register(request):
         return render(request, "exchange/register.html")
 
 
-
+@login_required
 def balance(request, username):
 
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
@@ -424,7 +424,7 @@ def trade(request, asset):
 
 
 
-
+@login_required
 def transaction(request, username):
 
     if request.method == 'GET':
@@ -443,6 +443,9 @@ def transaction(request, username):
         except Transactions.DoesNotExist:
             return HttpResponse("Error: User doesn't exist")
 
+
+
+@login_required
 def order(request, username):
 
     if request.method == 'GET':
