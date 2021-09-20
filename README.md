@@ -44,13 +44,13 @@ This application has four models:
 
 - The **Balance** page lists balance of all the available tokens for the user and has trade buttons that directs to that particular trading pair. It also has a load BUSD button clicking on it, the user will be able to add BUSD to their BUSD balance using their card. It uses ajax to manipulate the table, the code to this is inside *add.js* file.
 
+- The **trade.html** is the address where users are directed to as they click the trade button on assets in *Balance* page. It just requires the busd amount of asset the user needs to trade. If the balance is insufficient in either of the cases, this will show an error message.
+
 - The **Orders** page has list of the user's buy and sell data. It contains asset amount, busd amount and the time at which the particular order was placed. This uses *order.js* file to separate the Buy and Sell Orders using event listeners for buttons.
 
+- The **Transfer** page enables the user to make a transaction. It requires the asset name to be transferred from the list of assets, it's amount in BUSD, username of the recipient and the user's login password for authenticating the transaction.
+
 - The **Transactions** page has list of all the received and sent spots for a particular user, the table contains the sender or recipient username, the asset name, amount transferred in BUSD and time of the transaction as most recent one listed at the top. This uses *transaction.js* file to separate Sent and Received transactions.
-
-- The **Send** page enables the user to make a transaction. It requires the asset name to be transferred from the list of assets, it's amount in BUSD, username of the recipient and the user's login password for authenticating the transaction.
-
-- The **trade.html** is the address where users are directed to as they click the trade button on assets in *Balance* page. It just requires the busd amount of asset the user needs to trade. If the balance is insufficient in either of the cases, this will show an error message.
 
 - The **views.py** file contains all the back-end code that is going to make this website functional. It has all the neccessary imports that is required to run the application.
 
@@ -67,7 +67,7 @@ This application has four models:
 
 To run the application, make sure the system has django installed in it. If not then install it running the command '**pip3 install django**' in the terminal.
 
-Once it's installed, goto to the *DecentraSpot* directory in terminal and run the command '**python3 manage.py runserver**'. That's it.
+Once it's installed, goto to the **DecentraSpot** directory in terminal and run the command '**python3 manage.py runserver**'. That's it.
 
 
 

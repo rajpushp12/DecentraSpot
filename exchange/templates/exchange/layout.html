@@ -25,10 +25,10 @@
                         <a class="nav-link" href="{% url 'order' request.user.username %}">Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'transaction' request.user.username %}">Transactions</a>
+                        <a class="nav-link" href="{% url 'add_transaction' request.user.username %}">Transfer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'add_transaction' request.user.username %}">Transfer</a>
+                        <a class="nav-link" href="{% url 'transaction' request.user.username %}">Transactions</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
