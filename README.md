@@ -1,4 +1,4 @@
-# DecentraSpot
+# Information Manual
 
 It has been quite a time since I've started this project. I'm glad to be able to complete this at the expected date. I would like to thank CS50 for this insightful process, I learnt a lot and it has been a wonderful journey.
 
@@ -16,7 +16,7 @@ This makes the assessment a distinctive and fair complex application as has been
 
 
 
-## Specification
+## DecentraSpot
 
 
 
@@ -36,7 +36,7 @@ This application has four models:
 
 
 
-### Pages and Files
+### Pages and Specifications
 
 - This application has the basic **Login and Register** page.
 
@@ -54,13 +54,24 @@ This application has four models:
 
 - The **Send** page enables the user to make a transaction. It requires the asset name to be transferred from the list of assets, the amount in BUSD, username of the recipient and the user's login password for authenticating the transaction.
 
-- The **trade.html** is the address where users are directed to, as they click the trade button on assets in **Balance** page. It just requires the busd amount of asset user needs trade with a buy or sell button. If the balance is insufficient in either of the cases, it will show the error message.
+- The **trade.html** is the address where users are directed to, as they click the trade button on assets in *Balance* page. It just requires the busd amount of asset user needs trade with a buy or sell button. If the balance is insufficient in either of the cases, it will show the error message.
 
 - The **views.py** file contains all the back-end code that is going to make this website function. It has all the neccessary imports that is required to run the application.
 
-- The **urls.py** in the exchange app directory contains all the links that enables the user to navigate through the website and is linked to **views.py**.
+- The **urls.py** in the exchange app directory contains the urls that enable users to navigate through the website. It also has the neccessary API Route for the AJAX in *add.js* and this file is linked to *views.py*.
 
-- Last but not the least **admin.py** has a route in the main **urls.py** file and it enables the superuser to manipulate the database, it has access to all the models that have been created in **models.py**.
+- Last but not the least **admin.py** has a route in the main *urls.py* file and it enables the superuser to manipulate the database, it has access to all the models that have been created in *models.py*.
+
+
+## Running the application
+To run the application, make sure the system has django installed in it. If not the install it running the command **pip3 install django** in the terminal.
+
+Once it's installed, run it using the command **python3 manage.py runserver**. That's it.
 
 
 
+
+
+
+Resgards,
+Pushp Raj
