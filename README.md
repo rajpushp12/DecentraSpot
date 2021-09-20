@@ -13,9 +13,9 @@ It is a simulation of cryptocurriencies exchange site, involving no real blockch
 This makes the assesment a discinctive and fair complex application as has been mentioned in the requirements.
 
 
-### Specification
+## Specification
 
-## Database
+### Database
 
 This application has four models:
 
@@ -28,7 +28,7 @@ This application has four models:
 - **Orders:** It contains the detail of all the busd-spot trades happening on the site.
 
 
-## Pages
+### Pages
 
 - This application has the basic **Login and Register** page.
 
