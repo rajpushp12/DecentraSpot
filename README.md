@@ -12,17 +12,32 @@ It is a simulation of cryptocurriencies exchange site, involving no real blockch
 
 This makes the assesment a discinctive and fair complex application as has been mentioned in the requirements.
 
+
+### Specification
+
 ## Database
 
 This application has four models:
 
-**User:** It's a derivative of the *AbstractUser* class that contains all the registered user's information.
+- **User:** It's a derivative of the *AbstractUser* class that contains all the registered user's information.
 
-**Balance:** This model has the balance of all the Spots and BUSD for each user.
+- **Balance:** This model has the balance of all the Spots and BUSD for each user.
 
-**Transactions:** It contains the detail of all the transactions that are being made on DecentraSpot.
+- **Transactions:** It contains the detail of all the transactions that are being made on DecentraSpot.
 
-**Orders:** It contains the detail of all the trades happening on the site.
+- **Orders:** It contains the detail of all the busd-spot trades happening on the site.
 
+
+## Pages
+
+- This application has the basic **Login and Register** page.
+
+- The **Index** page has the price list of all the markets that are available on DecentraSpot along with their Market Cap, 24 hr Change and 1 Week Change. The 'DecentraSpot' nav act's as home button that will redirect the user to this page.
+
+- The **Balance** page lists balance of all the available tokens for the user and has trade buttons that directs to that particular trading pair. It also has a load BUSD button clicking on it, the user will be able to add BUSD to their BUSD balance using AJAX that's inside *add.js* file.
+
+- The **Orders** page has list of the user's buy and sell data as asset amount, busd amount and the time at which the particular order was placed. This uses *order.js* file to seperate the Buy and Sell Orders using event listeners for the buttons.
+
+- The **Transactions** page has list of all the received and sent spots for a particular user, the table contains the sender or recipient username, the asset name, amount transfered in BUSD and time of the transaction as most recent one listed at the top. This uses *transaction.js* file to seperate Sent and Received transactions.
 
 
