@@ -13,15 +13,7 @@ It is a simulation of cryptocurrencies exchange site, involving no real blockcha
 This makes the assessment a distinctive and fair complex application as has been mentioned in the requirements.
 
 
-
-
-
-## DecentraSpot
-
-
-
-
-### Database
+## Database
 
 This application has four models:
 
@@ -36,7 +28,7 @@ This application has four models:
 
 
 
-### Pages and Specifications
+## Pages and Specifications
 
 - This application has the basic **Login and Register** page.
 
