@@ -48,7 +48,7 @@ This application has four models:
 
 - The **Orders** page has list of the user's buy and sell data. It contains asset amount, busd amount and the time at which the particular order was placed. This uses *order.js* file to separate the Buy and Sell Orders using event listeners for buttons.
 
-- The **Transfer** page enables the user to make a transaction. It requires the asset name to be transferred from the list of assets, it's amount in BUSD, username of the recipient and the user's login password for authenticating the transaction.
+- The **Transfer** page enables the user to make a transaction. It requires the asset name to be transferred from the list of assets, it's amount, username of the recipient and the user's login password for authenticating the transaction.
 
 - The **Transactions** page has list of all the received and sent spots for a particular user, the table contains the sender or recipient username, the asset name, amount transferred in BUSD and time of the transaction as most recent one listed at the top. This uses *transaction.js* file to separate Sent and Received transactions.
 
@@ -67,7 +67,7 @@ This application has four models:
 
 To run the application, make sure the system has django installed in it. If not then install it running the command '**pip3 install django**' in the terminal.
 
-Once it's installed, goto to the **DecentraSpot** directory in terminal and run the command '**python3 manage.py runserver**'. That's it.
+Once it's installed, goto to the **DecentraSpot** directory in terminal and run the command '**python3 manage.py runserver**'.
 
 
 

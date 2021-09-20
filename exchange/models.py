@@ -60,7 +60,7 @@ class Orders(models.Model):
     time=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"User: {self.user}, amount: {self.amount} {self.asset}"
+        return f"User: {self.user}, amount: {self.asset_amount} {self.asset}"
 
     def serialize(self):
 
