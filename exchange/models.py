@@ -11,7 +11,7 @@ class User(AbstractUser):
 
 class Balance(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
-    busd=models.FloatField(default=0)
+    usdt=models.FloatField(default=0)
     btc=models.FloatField(default=0)
     eth=models.FloatField(default=0)
     ada=models.FloatField(default=0)
@@ -20,7 +20,6 @@ class Balance(models.Model):
     xrp=models.FloatField(default=0)
     dot=models.FloatField(default=0)
     uni=models.FloatField(default=0)
-    ltc=models.FloatField(default=0)
     
 
 

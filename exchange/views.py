@@ -175,15 +175,14 @@ def balance(request, username):
         'ada':(balance_fetch.ada),
         'xrp':(balance_fetch.xrp),
         'uni':(balance_fetch.uni),
-        'ltc':(balance_fetch.ltc),
         'sol':(balance_fetch.sol),
         'eth':(balance_fetch.eth),
         'dot':(balance_fetch.dot),
-        'busd':(balance_fetch.busd)
+        'usdt':(balance_fetch.usdt)
         }
 
         for m in value:
-            balance[m]=round((value[m]),8)
+            balance[m]=round((value[m]),4)
 
         for n in value:
             value[n]=round((value[n]*price_set[n]),4)
@@ -196,12 +195,12 @@ def balance(request, username):
         
 
         total=round(total,2)
-        busd= round(balance["busd"],2)
-        spot=round((total-(balance["busd"])),2)
+        usdt= round(balance["usdt"],2)
+        spot=round((total-(balance["usdt"])),2)
 
         return render(request, 'exchange/balance.html',{
             'spot':spot,
-            'busd':busd,
+            'usdt':usdt,
             'total':total,
             'value':value,
             'balance':balance
@@ -226,8 +225,8 @@ def add_usd(request, username):
 
             data=json.loads(request.body)
             
-            x = balance.busd + data["amount"]
-            balance.busd = x
+            x = balance.usdt + data["amount"]
+            balance.usdt = x
             balance.save()
 
     except User.DoesNotExist:
@@ -354,16 +353,16 @@ def trade(request, asset):
 
                 balance=Balance.objects.get(user=user.id)
                 m=getattr(balance, asset)
-                n=balance.busd
+                n=balance.usdt
 
-                if amount<=balance.busd:
+                if amount<=balance.usdt:
 
                     m= m + (amount/price_set[asset])
                     setattr(balance, asset, m)
                     balance.save()
 
                     n= n - amount
-                    balance.busd=n
+                    balance.usdt=n
                     balance.save()
 
                     order=Orders()
@@ -373,13 +372,11 @@ def trade(request, asset):
                     order.asset=asset
                     order.busd_amount=amount
                     order.save()
-
-
                     return redirect('balance', request.user.username)
  
                 else:
                     return render(request, 'exchange/trade.html', {
-                    'message': 'Insufficient BUSD',
+                    'message': 'Insufficient Balance',
                     'asset': asset
                     })
 
@@ -391,7 +388,7 @@ def trade(request, asset):
 
                 balance=Balance.objects.get(user=user.id)
                 a=getattr(balance, asset)
-                b=balance.busd
+                b=balance.usdt
 
                 if (a*price_set[asset])>=amount:
 
@@ -400,7 +397,7 @@ def trade(request, asset):
                     balance.save()
 
                     b= b + amount
-                    balance.busd=b
+                    balance.usdt=b
                     balance.save()
 
                     order=Orders()

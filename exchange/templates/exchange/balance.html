@@ -10,7 +10,7 @@
 
     <div style="color: #f0ad4e;" class="row">
         <div class="col-sm-4">
-            <h3>BUSD: $ {{ busd }}</h3>
+            <h3>BUSD: $ {{ usdt }}</h3>
         </div>
         <div class="col-sm-4">
             <h3>Decentra: $ {{ spot }}</h3>
@@ -20,7 +20,7 @@
         </div>
     </div><br>
 
-    <button id="load-btn" class="btn btn-block btn-outline-warning" value="{{ user.username }}">Load BUSD</button>
+    <button id="load-btn" class="btn btn-block btn-outline-warning" value="{{ user.username }}">Load USDT</button>
     
     <br><br><br>
 
@@ -84,12 +84,6 @@
                 <td>{{ value.uni }}</td>
                 <td><a href="{% url 'trade' 'uni' %}" class="btn btn-sm btn-outline-warning">Trade</a></td>
             </tr>
-            <tr>
-                <td>LTC</td>
-                <td>{{ balance.ltc }}</td>
-                <td>{{ value.ltc }}</td>
-                <td><a href="{% url 'trade' 'ltc' %}" class="btn btn-sm btn-outline-warning">Trade</a></td>
-            </tr>
         </tbody>
     </table>
 </div>
@@ -103,8 +97,8 @@
 <div style="padding-top:180px" id="add-view">
         <form id="load-submit">
             <div class="form-group col-sm-4 offset-sm-4">
-                <h2 style="color: #f0ad4e;">Load BUSD</h2>
-                <p>BUSD is a stable coin. 1 BUSD = 1 USD</p>
+                <h2 style="color: #f0ad4e;">Load USDT</h2>
+                <p>Tether USD is a Stable Coin. 1 USDT = 1 USD</p>
                 <input autofocus id="add-amount" class="form-control" type="text" name="amount" placeholder="USD amount">
             </div>
             <div class="form-group col-sm-4 offset-sm-4">

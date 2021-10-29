@@ -42,7 +42,7 @@ function add_balance(username){
                 })
             })
             
-            document.querySelector('#message').innerHTML = `Loaded USD ${add_amount} to BUSD Balance`;
+            document.querySelector('#message').innerHTML = `Loaded USD ${add_amount} to Balance`;
             location.reload()
             return false;
         }
