@@ -1,14 +1,14 @@
 body{
-  font-family: 'Manrope', sans-serif;
-  min-height: 400px;
-  clear: both;
+        font-family: 'Manrope', sans-serif;
+        min-height: 400px;
+        clear: both;
 }
 
 
 footer{
-  padding: 10px 0;
-  bottom: 0;
-  width: 100%;
-  color: #f0ad4e;
-  text-align: center;
+        padding: 10px 0;
+        bottom: 0;
+        width: 100%;
+        color: #f0ad4e;
+        text-align: center;
 }
